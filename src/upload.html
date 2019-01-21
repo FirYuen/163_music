@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Upload</title>
+    <link rel="stylesheet" href="./style/upload.css">
+    <link rel="stylesheet" href="./style/spectre.min.css">
+    <link rel="stylesheet" href="./style/spectre-icons.min.css">
+    <style>
+
+    </style>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/@baiducloud/bos-uploader/dist/bce-bos-uploader.bundle.js"></script>
+    <script src="../node_modules/humanize/humanize.js"></script>
+
+</head>
+
+<body>
+    <div id="parent">
+        <div id="left">
+            <div class="uploadContainer">
+                <!-- <input type="file" id="file" /> -->
+                <span id="file">
+                    <h3>点击选择文件并上传</h3>
+                </span>
+                <!-- <span id="start">点击上传</span> -->
+
+            </div>
+            <button class="btn btn-primary btn-lg" id="btnUpload"><span>上传</span></button>
+        </div>
+        <div id="right-float">
+            <div id="right">
+                <table class="table table-striped table-hover " width="80%" border="0.5px">
+                  
+
+                    <tr>
+                        <th>文件名</th>
+                        <th>文件大小</th>
+                        <th>上传进度</th>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // document.getElementById("btnUpload").addEventListener('click', () => {
+        //     console.log("start!");
+        //     console.log(uploader);
+        //     uploader.start()
+
+        // })
+        $("#btnUpload").on("click",()=>{
+            console.log("clicked");  
+            uploader.start(); 
+        })
+
+        $("#uploadContainer").on("dragenter", (e) => {
+            e.preventDefault();
+
+        });
+        $('#uploadContainer').on('dragover', (e) => {
+            e.preventDefault();
+
+        })
+        $('#uploadContainer').on('drop', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            var files = e.originalEvent.dataTransfer.files;
+
+            console.log(files);
+
+        })
+
+        var kUptokenUrl = 'http://192.168.0.21:1337/sts';
+        var uploader
+        $(document).ready(
+            $.get(kUptokenUrl, response => {
+                var sessionToken = JSON.parse(response)
+                // console.log(sessionToken);
+                uploader = new baidubce.bos.Uploader({
+                    browse_button: '#file',
+                    bos_bucket: 'music-163',
+                    multi_selection: true,
+                    max_file_size: '3Mb',
+                    bos_multipart_min_size: '10Mb',
+                    bos_task_parallel: 2,
+                    bos_multipart_parallel: 5,
+                    chunk_size: '10mb',
+                    max_retries: 2,
+                    // auto_start:true,
+
+                    bos_ak: sessionToken.AccessKeyId,
+                    bos_sk: sessionToken.SecretAccessKey,
+                    uptoken: sessionToken.SessionToken,
+                    bos_endpoint: "http://su.bcebos.com",
+                    init: {
+                        FilesAdded: function (_, files) {
+                            for (var i = 0; i < files.length; i++) {
+                                var file = files[i]
+                                console.log(file)
+                                var html = '<tr id="' + file.uuid + '">' +
+                                    '<td class="f-name"> ' + (file.name) +
+                                    '<td class="f-size">' + (humanize.filesize(file.size)) +
+                                    '<td class="f-progress"> 0.00% '+
+                                    '</tr>';
+
+
+                                $('.table').append(html);
+                            }
+                        },
+                        UploadProgress: function (_, file, progress, event) {
+                            (progress) =>{
+                                $('#' + file.__id + ' .f-progress').html((progress * 100).toFixed(2) +
+                                    '%');
+                            }
+
+
+                        },
+                    }
+                });
+            })
+        )
+    </script>
+</body>
+
+</html>

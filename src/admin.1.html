@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>bce-bos-uploader simple demo</title>
+    <!--[if lt IE 8]><script src="./node_modules/json3/lib/json3.min.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="./node_modules/js-polyfills/es5.js"></script><![endif]-->
+    <!--[if lt IE 10]><script src="./node_modules/moxie/bin/js/moxie.js"></script><![endif]-->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/@baiducloud/bos-uploader/dist/bce-bos-uploader.bundle.js"></script>
+  </head>
+  <body>
+    <input type="file" id="file" />
+    
+    <script>
+    var uploader = new baidubce.bos.Uploader({
+      browse_button: '#file',
+      bos_bucket: 'music-163',
+      multi_selection: true,
+      uptoken_url: 'http://127.0.0.1:3000/sts',
+      auto_start:false,
+      bos_endpoint:'http://su.baidubce.com'
+
+    });
+    </script>
+  </body>
+</html>

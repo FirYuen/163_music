@@ -9,6 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "leancloud-storage": "^3.11.0"
+    "@baiducloud/bos-uploader": "^1.4.0-rc.0",
+    "@baiducloud/sdk": "^1.0.0-rc.5",
+    "bootstrap": "^4.2.1",
+    "humanize": "0.0.9",
+    "jquery": "^3.3.1",
+    "koa": "^2.6.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "leancloud-storage": "^3.11.0",
+    "plupload": "^2.3.6",
+    "progressbar.js": "^1.0.1",
+    "spectre": "0.0.1"
   }
 }
