@@ -3,7 +3,10 @@
     let view = {
         el: '.songInfo',
         template: `
-        <h1>保存歌曲信息到数据库</h1> 
+        <br>
+        <h3>保存歌曲信息到数据库</h3> 
+        <br>
+        <br>
             <form>
                 <div class="row">
                     <label for="">

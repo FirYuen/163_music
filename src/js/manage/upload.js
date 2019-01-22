@@ -24,11 +24,12 @@
             this.view = view
             this.model = model
             this.view.render(this.model.data)
-            this.uploadButton()
+            
             this.uploadBar()
             window.eventHub.on('uploadSong', (data) => {
               if ($('#fileName').html()!=='歌曲名') {
                 uploader.start();
+                $('body').addClass('disabled')
               }       
             })
         },
@@ -47,6 +48,7 @@
                     chunk_size: '30mb',
                     max_retries: 2,
                     // auto_start:true,
+                    accept:'mp3',
                     bos_ak: sessionToken.AccessKeyId,
                     bos_sk: sessionToken.SecretAccessKey,
                     uptoken: sessionToken.SessionToken,
@@ -92,16 +94,13 @@
                         },
                         UploadComplete:function () {
                             window.eventHub.emit('saveStatus','')
+                            $('body').removeClass('disabled')
                         }
                     }
                 });
             })
         },
-        uploadButton() {
-            $("#btnUpload").on("click", () => {
-                uploader.start();
-            })
-        },
+
         uploadBar() {
             var bar = new ProgressBar.Line('#progressbar', {
                 strokeWidth: 1,

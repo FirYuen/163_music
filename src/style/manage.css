@@ -33,6 +33,9 @@ body {
 .active {
     background-color: #ddd
 }
+.disabled{
+    pointer-events:none; 
+    }
 .banner{
     background: #E60026;
     height: 60px
