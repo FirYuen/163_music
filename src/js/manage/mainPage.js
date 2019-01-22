@@ -113,20 +113,26 @@
         bindEvents() {
             $(this.view.el).on('submit', 'form', (e) => {
                 e.preventDefault()
+           
                 let needs = 'name singer'.split(' ')
                 let data = {}
                 needs.map((str) => {
                     data[str] = $(this.view.el).find(`[name = "${str}"]`).val()
                 })
                 data.link = $(this.view.el).find('span:eq(1)').html()
-                window.eventHub.emit('uploadSong', '')
-                this.model.create(data)
-                    .then(() => {
-                        window.AV.Object.destroyAll()
-                        window.eventHub.emit('create', this.model.data)
-                    }, () => {
-                        // $('#storageStatus').html('保存失败').addClass('success').removeClass('hidden')
-                    })
+                if ($(this.view.el).find('span:eq(1)').html()) {
+                    window.eventHub.emit('uploadSong', '')
+                    this.model.create(data)
+                        .then(() => {
+                            window.AV.Object.destroyAll()
+                            window.eventHub.emit('create', this.model.data)
+                        }, () => {
+                            // $('#storageStatus').html('保存失败').addClass('success').removeClass('hidden')
+                        })
+                    
+                }else{
+                    alert(`外链为空时属于无效上传\n请选择或上传歌曲再试！`)
+                }
             })
         },
         saveStatus(){

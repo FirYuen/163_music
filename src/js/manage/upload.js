@@ -27,7 +27,9 @@
             this.uploadButton()
             this.uploadBar()
             window.eventHub.on('uploadSong', (data) => {
-                    uploader.start();
+              if ($('#fileName').html()!=='歌曲名') {
+                uploader.start();
+              }       
             })
         },
         initUploader(model) {
