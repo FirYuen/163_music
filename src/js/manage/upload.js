@@ -99,7 +99,6 @@
         },
         uploadButton() {
             $("#btnUpload").on("click", () => {
-                
                 uploader.start();
             })
         },

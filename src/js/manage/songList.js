@@ -16,9 +16,7 @@
                     return $('<li></li>').text(`${song.singer} - ${song.name}`).attr('data-id',song.id)
                 }else{
                     return $('<li></li>').text(song.name).attr('data-id',song.id)
-
                 }
-
             })
             $(this.el).find('ul').empty()
             liList.map((domLi) => {
@@ -62,6 +60,7 @@
                let id = e.currentTarget.getAttribute('data-id')
                for (let i = 0; i< this.model.data.songs.length;i++) {
                   if(id === this.model.data.songs[i].id){
+                    //   console.log('songlist');
                     //   console.log(this.model.data.songs[i]);
                       window.eventHub.emit('file',JSON.parse(JSON.stringify(this.model.data.songs[i])))
                       break
@@ -78,6 +77,9 @@
             window.eventHub.on('create', (data) => {
                 this.model.data.songs.push(data)
                 this.view.render(this.model.data)
+            })
+            window.eventHub.on('updateSongList',()=>{
+                this.getAllSongs()      
             })
         }
     }

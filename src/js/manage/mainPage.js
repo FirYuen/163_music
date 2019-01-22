@@ -86,13 +86,15 @@
             this.view.render(this.model.data)
             this.bindEvents()
             window.eventHub.on('file', (data) => {
-               //邓福如 - Nothing on you.mp3
-               if(data.singer){
-               }else{
-                var split = data.name.split(` - `)
-                data.name = split[1]
-                data.singer = split[0]
-               }
+                //邓福如 - Nothing on you.mp3
+                // console.log('mainpage got data');
+                // console.log(data);
+                if (data.singer) {} else {
+                    var split = data.name.split(` - `)
+                    data.name = split[1]
+                    data.singer = split[0]
+                }
+                this.model.data = data
                 this.view.reset(data)
             })
             this.saveStatus()
@@ -113,34 +115,50 @@
         bindEvents() {
             $(this.view.el).on('submit', 'form', (e) => {
                 e.preventDefault()
-           
                 let needs = 'name singer'.split(' ')
                 let data = {}
                 needs.map((str) => {
                     data[str] = $(this.view.el).find(`[name = "${str}"]`).val()
                 })
                 data.link = $(this.view.el).find('span:eq(1)').html()
+                data.id = this.model.data.id
                 if ($(this.view.el).find('span:eq(1)').html()) {
-                    window.eventHub.emit('uploadSong', '')
-                    this.model.create(data)
-                        .then(() => {
-                            window.AV.Object.destroyAll()
-                            window.eventHub.emit('create', this.model.data)
-                        }, () => {
-                            // $('#storageStatus').html('保存失败').addClass('success').removeClass('hidden')
+                    console.log(data);
+                    if (data.id) {
+                        this.update(data).then(()=>{
+                            window.eventHub.emit('updateSongList','')
                         })
-                    
-                }else{
+                    } else {
+                        this.save(data)
+                    }
+                } else {
                     alert(`外链为空时属于无效上传\n请选择或上传歌曲再试！`)
                 }
             })
         },
-        saveStatus(){
-            window.eventHub.on('saveStatus',(data)=>{
+        save(data) {
+            window.eventHub.emit('uploadSong', '')
+            this.model.create(data)
+                .then(() => {
+                    window.AV.Object.destroyAll()
+                    window.eventHub.emit('create', this.model.data)
+                }, () => {
+                    // $('#storageStatus').html('保存失败').addClass('success').removeClass('hidden')
+                })
+        },
+        update(data) {
+            let song = AV.Object.createWithoutData('song', data.id);
+            song.set('name', data.name);
+            song.set('singer', data.singer);
+            song.set('link', data.link);
+            return song.save();
+        },
+        saveStatus() {
+            window.eventHub.on('saveStatus', (data) => {
                 $('#storageStatus').addClass('success').removeClass('hidden')
-                setTimeout(()=>{
+                setTimeout(() => {
                     this.view.reset()
-                },1000)
+                }, 1000)
             })
         }
     }
