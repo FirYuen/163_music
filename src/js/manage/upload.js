@@ -14,10 +14,41 @@
         `,
         render() {
             $(this.el).html(this.template)
+        },
+
+        uploadBar() {
+            var bar = new ProgressBar.Line('#progressbar', {
+                strokeWidth: 1,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#E60026',
+                trailColor: '#eee',
+                //trailWidth: 1,
+                svgStyle: {width: '100%', height: '100%'},
+                text: {
+                  style: {
+                    color: '#999',
+                    position: 'absolute',
+                    right: '0',
+                    //top: '0',
+                    padding: '0px',
+                    margin: '0px',
+                    transform: null
+                  },
+                  autoStyleContainer: true
+                },
+                from: {color: '#FFEA82'},
+                to: {color: '#ED6A5A'},
+                step: (state, bar) => {
+                  bar.setText(Math.round(bar.value() * 100) + ' %');
+                }
+              });
+            this.bar = bar
+            //bar.animate(1.0);
         }
     }
     let model = {
-        kUptokenUrl: 'http://192.168.0.21:1337/sts'
+        kUptokenUrl: 'http://192.168.0.9:1337/sts'
     }
     let controller = {
         init(view, model) {
@@ -25,7 +56,7 @@
             this.model = model
             this.view.render(this.model.data)
             
-            this.uploadBar()
+            this.view.uploadBar()
             window.eventHub.on('uploadSong', (data) => {
               if ($('#fileName').html()!=='歌曲名') {
                 uploader.start();
@@ -76,7 +107,7 @@
                         UploadProgress: function (_, file, progress, event) {
                             // console.log((progress * 100).toFixed(2) + '%');
                             /* bar.animate(0.5);  */
-                            controller.bar.animate(progress);
+                            view.bar.animate(progress);
                         },
                         NetworkSpeed: function (_, bytes, time, pendings) {
                             var speed = bytes / (time / 1000);
@@ -99,37 +130,6 @@
                     }
                 });
             })
-        },
-
-        uploadBar() {
-            var bar = new ProgressBar.Line('#progressbar', {
-                strokeWidth: 1,
-                easing: 'easeInOut',
-                duration: 1400,
-                color: '#E60026',
-                trailColor: '#eee',
-                //trailWidth: 1,
-                svgStyle: {width: '100%', height: '100%'},
-                text: {
-                  style: {
-                    color: '#999',
-                    position: 'absolute',
-                    right: '0',
-                    //top: '0',
-                    padding: '0px',
-                    margin: '0px',
-                    transform: null
-                  },
-                  autoStyleContainer: true
-                },
-                from: {color: '#FFEA82'},
-                to: {color: '#ED6A5A'},
-                step: (state, bar) => {
-                  bar.setText(Math.round(bar.value() * 100) + ' %');
-                }
-              });
-            this.bar = bar
-            //bar.animate(1.0);
         }
     }
     controller.init(view, model)
