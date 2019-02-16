@@ -48,7 +48,7 @@
         }
     }
     let model = {
-        kUptokenUrl: 'http://192.168.0.9:1337/sts'
+        kUptokenUrl: 'http://47.101.153.129/sts'
     }
     let controller = {
         init(view, model) {
