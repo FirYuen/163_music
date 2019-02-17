@@ -7,7 +7,7 @@ AV.init({
     let view = {
         el: '.page',
         template: `
-        <audio preload = "auto" src={{url}}>{{name}}</audio>
+        <audio loop preload = "auto" src={{url}}>{{name}}</audio>
         <div class="disc-container">
                     <img class="pointer" src="//s3.music.126.net/m/s/img/needle-ip6.png?be4ebbeb6befadfcae75ce174e7db862 " alt="">
                     <div class="disc">
