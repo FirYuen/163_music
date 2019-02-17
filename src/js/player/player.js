@@ -3,7 +3,8 @@ let APP_KEY = 'YW3c1V2tAOpqaVKWrzyJnsP3';
 AV.init({
     appId: APP_ID,
     appKey: APP_KEY
-}); {
+}); 
+{
     let view = {
         el: '.page',
         template: `
