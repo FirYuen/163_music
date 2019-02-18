@@ -52,7 +52,7 @@
             </section>
             <section class="globalTabs">
                 <ol id="tabs" class="tabs-nav">
-                    
+
                     <li class=active data-tab-name="page-1">
                         <div class="text"> 推荐音乐 </div>
                     </li>
@@ -66,51 +66,16 @@
             </section>
         </div>
         <ol class="tab-content noCollapse">
-            <li class="page-1 active">
+            <li class="page-1  active">
                 <section class="playlists">
                     <h2 class="sectionTitle">推荐歌单</h2>
-                    <ol class="songs">
-                        <li>
-                            <div class="cover">
-                                <img width=105 src="./img/album.jpeg" alt="封面">
-                            </div>
-                            <p>两行文字两行文字两行文字两行文字两行文字</p>
-                        </li>
-                        <li>
-                            <div class="cover">
-                                <img src="./img/album.jpeg" alt="封面">
-                            </div>
-                            <p>两行文字两行文字两行文字两行文字</p>
-                        </li>
-                        <li>
-                            <div class="cover">
-                                <img src="./img/album.jpeg" alt="封面">
-                            </div>
-                            <p>两行文字两行文字两行文字两行文字</p>
-                        </li>
-                        <li>
-                            <div class="cover">
-                                <img src="./img/album.jpeg" alt="封面">
-                            </div>
-                            <p>两行文字两行文字两行文字两行文字</p>
-                        </li>
-                        <li>
-                            <div class="cover">
-                                <img src="./img/album.jpeg" alt="封面">
-                            </div>
-                            <p>两行文字两行文字两行文字两行文字</p>
-                        </li>
-                        <li>
-                            <div class="cover">
-                                <img src="./img/album.jpeg" alt="封面">
-                            </div>
-                            <p>两行文字两行文字两行文字两行文字</p>
-                        </li>
+                    <ol class="songs" id="hotList">
+
                     </ol>
                 </section>
                 <section class="songs">
                     <h2 class="sectionTitle">最新音乐</h2>
-                    <ol id="songs" class="list">
+                    <ol id="songlist" class="list songlist">
                         <div id="songs-loading" class="square-spin" style="margin: 0 auto; width: 50px;">
                             <div></div>
                         </div>
@@ -157,7 +122,29 @@
                     </div>
                 </section>
             </li>
-            <li class="page-2">page 2</li>
+            <li class="page-2 ">
+                <div class="mtab">
+                    <div class="top">
+                        <div class="ct">
+                            <div class="texticon">
+
+                                <!-- <h1>云村热歌榜</h1> -->
+                            </div>
+
+                            <div class="hottime">更新日期：02月16日</div>
+
+                        </div>
+                    </div>
+
+                    <section class="songs">
+                            <ol id="songlist" class="list songlist">
+                                <div id="songs-loading" class="square-spin" style="margin: 0 auto; width: 50px;">
+                                    <div></div>
+                                </div>
+                            </ol>
+                        </section>
+                </div>
+            </li>
             <li class="page-3">
                 <input id="search" type="text" style="background:#EBECEC;">
                 <ol id="searchResult"></ol>
@@ -181,6 +168,7 @@
     <script src="./js/songs/page1.js"></script>
     <script src="./js/songs/page2.js"></script>
     <script src="./js/songs/page3.js"></script>
+    <script src="./js/songs/hotlist.js"></script>
     <script src="./js/songs/songList.js"></script>
 </body>
 

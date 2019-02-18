@@ -187,3 +187,37 @@ section.art .copyright{
 }
 
 
+.mtab .top{
+  position: relative;
+  padding-top: 38.9%;
+  overflow: hidden;
+  background: url(//s3.music.126.net/m/s/img/hot_music_bg_2x.jpg?f01a252…) no-repeat;
+  background-size: contain;
+}
+.mtab .ct{
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  right: 0;
+  bottom: 0;
+}
+/* .mtab .texticon{
+padding-left: 40px;
+padding-top: 40px;
+font-size: 38px;
+color: white;
+font-family: Arial, Helvetica, sans-serif;
+
+} */
+
+.mtab .texticon{
+  width: 183px;
+  height: 99px;
+  background-position: -24px -30px;
+  background: url(/src/img/index_icon_2x.png) no-repeat;
+  background-size: 166px 97px;
+}
+.mtab .hottime{
+  padding-left: 22px;
+  color: white
+}

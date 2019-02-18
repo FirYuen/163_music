@@ -1,6 +1,6 @@
 {
     let view = {
-        el:'#songs',
+        el:'.songlist',
         template:`
         <li>
         <h3>{{song.name}}</h3>
